@@ -1,7 +1,7 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import 'reset-css';
 
-const theme = extendedTheme({
+const theme = extendTheme({
   colors: {
     gray:{
       100: '#F5f5f5',
@@ -31,7 +31,11 @@ const theme = extendedTheme({
 
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return(
+  <ChakraProvider theme={theme}>
+    <Component {...pageProps} />
+  </ChakraProvider>
+  )
 }
 
 export default MyApp
