@@ -5,7 +5,13 @@ import styles from "../styles/Home.module.css";
 
 const Home = () => {
   return (
-    <GradientLayout color="red">
+    <GradientLayout
+      roundImage
+      color="green"
+      subtitle="profile"
+      title="Ryan Burns"
+      description="15 public playlists"
+    >
       <div>Homepage</div>
     </GradientLayout>
   );

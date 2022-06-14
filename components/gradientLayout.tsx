@@ -25,7 +25,7 @@ const GradientLayout = ({
             borderRadius={roundImage ? "100%" : "3px"}
           />
         </Box>
-        <Box padding="20px" lineHeight="40px">
+        <Box padding="20px" lineHeight="40px" color="white">
           <Text fontSize="sm" fontWeight="bold" casing="uppercase">
             {subtitle}
           </Text>
