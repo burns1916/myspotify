@@ -21,7 +21,7 @@ const run = async () => {
           },
         },
       });
-    })
+    }),
   );
 
   const salt = bcrypt.genSaltSync();
@@ -31,6 +31,8 @@ const run = async () => {
     create: {
       email: "user@test.com",
       password: bcrypt.hashSync("password", salt),
+      firstName: "Ryan",
+      lastName: "Burns",
     },
   });
 
@@ -50,7 +52,7 @@ const run = async () => {
           },
         },
       });
-    })
+    }),
   );
 };
 
