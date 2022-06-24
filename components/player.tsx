@@ -26,13 +26,37 @@ import { formatTime } from "../lib/formatters";
 const Player = ({ songs, activeSong }) => {
   const [playing, setPlaying] = useState(true);
   const [shuffle, setShuffle] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    songs.findIndex((s) => s.id === activeSong.id),
+  );
   const [seek, setSeek] = useState(0.0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [duration, setDuration] = useState(0.0);
-
+  const setActiveSong = useStoreActions((state: any) => state.changeActiveSong);
+  const repeatRef = useRef(repeat);
   const soundRef = useRef(null);
+
+  useEffect(() => {
+    let timerId;
+    if (playing && !isSeeking) {
+      const f = () => {
+        setSeek(soundRef.current.seek());
+        timerId = requestAnimationFrame(f);
+      };
+      timerId = requestAnimationFrame(f);
+      return () => cancelAnimationFrame(timerId);
+    }
+    cancelAnimationFrame(timerId);
+  }, [playing, isSeeking]);
+
+  useEffect(() => {
+    setActiveSong(songs[index]);
+  }, [index, setActiveSong, songs]);
+
+  useEffect(() => {
+    repeatRef.current = repeat;
+  }, [repeat]);
 
   const setPlayState = (value) => {
     setPlaying(value);
@@ -66,7 +90,7 @@ const Player = ({ songs, activeSong }) => {
   };
 
   const onEnd = () => {
-    if (repeat) {
+    if (repeatRef.current) {
       setSeek(0);
       soundRef.current.seek(0);
     } else {
@@ -157,7 +181,7 @@ const Player = ({ songs, activeSong }) => {
       <Box color="gray.600">
         <Flex justify="center" align="center">
           <Box width="10%">
-            <Text fontSize="xs">1:21</Text>
+            <Text fontSize="xs">{formatTime(seek)}</Text>
           </Box>
           <Box width="80%">
             <RangeSlider
@@ -168,8 +192,8 @@ const Player = ({ songs, activeSong }) => {
               id="player-range"
               onChange={onSeek}
               value={[seek]}
-              onChangeStart={setIsSeeking(true)}
-              onChangeEnd={setIsSeeking(false)}
+              onChangeStart={() => setIsSeeking(true)}
+              onChangeEnd={() => setIsSeeking(false)}
             >
               <RangeSliderTrack bg="gray.800">
                 <RangeSliderFilledTrack bg="gray.600" />
