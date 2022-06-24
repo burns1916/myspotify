@@ -54,7 +54,6 @@ export const artistsData: {
       {
         name: "Astronaut in a Submarine",
         duration: 239,
-        artist: "FSM Team",
         url: "https://dl.dropboxusercontent.com/s/9b43fr6epbgji4f/astronaut-in-a-submarine.mp3?dl=0",
       },
     ],

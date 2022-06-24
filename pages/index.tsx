@@ -15,7 +15,7 @@ const Home = ({ artists }) => {
       color="purple"
       subtitle="profile"
       title={`${user.firstName} ${user.lastName}`}
-      description={`${user.playlistCount}`}
+      description={`${user.playlistsCount} Public Playlists`}
       image="https://lh3.googleusercontent.com/a-/AOh14Gh5PgHg9okrWX0k1QsHLaGnd_k2DIkoArlwaDlA=s192-c-rg-br100"
     >
       <Box color="white" paddingX="40px">
